@@ -45,7 +45,25 @@ class BookDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun deleteBook(): Unit = TODO("Implementirajte izbris")
+    private fun deleteBook() {
+        val id = intent.getIntExtra("ep.rest.id", 0)
+        if (id > 0) {
+            BookService.instance.delete(id).enqueue(OnDeleteCallbacks(this))
+        }
+    }
+
+    private class OnDeleteCallbacks(val activity: BookDetailActivity) : Callback<Void> {
+        private val tag = this::class.java.canonicalName
+
+        override fun onResponse(call: Call<Void>, response: Response<Void>) {
+            Log.i(tag, "Uspesno pobrisana knjiga")
+            activity.startActivity(Intent(activity, MainActivity::class.java))
+        }
+
+        override fun onFailure(call: Call<Void>, t: Throwable) {
+            Log.w(tag, "Error: ${t.message}", t)
+        }
+    }
 
     private class OnLoadCallbacks(val activity: BookDetailActivity) : Callback<Book> {
         private val tag = this::class.java.canonicalName
