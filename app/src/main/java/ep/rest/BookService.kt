@@ -22,6 +22,9 @@ object BookService {
         @GET("books/{id}")
         fun get(@Path("id") id: Int): Call<Book>
 
+        @DELETE("books/{id}")
+        fun delete(@Path("id") id: Int): Call<Void>
+
         @FormUrlEncoded
         @POST("books")
         fun insert(@Field("author") author: String,
