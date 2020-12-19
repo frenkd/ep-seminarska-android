@@ -5,28 +5,33 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
-object BookService {
+object SneakersService {
 
     interface RestApi {
 
         companion object {
             // AVD emulator
-            // const val URL = "http://10.0.2.2:8080/netbeans/mvc-rest/api/"
+            const val URL = "http://172.22.200.86/netbeans/ep-seminarska/api/"
             // Genymotion
-            const val URL = "http://10.0.3.2:8080/netbeans/mvc-rest/api/"
+            // const val URL = "http://10.0.3.2:8080/netbeans/mvc-rest/api/"
         }
 
-        @GET("books")
-        fun getAll(): Call<List<Book>>
+        @GET("products")
+        fun getAll(): Call<List<Product>>
 
-        @GET("books/{id}")
-        fun get(@Path("id") id: Int): Call<Book>
+        @GET("products/{id}")
+        fun get(@Path("id") id: Int): Call<Product>
 
-        @DELETE("books/{id}")
+        @FormUrlEncoded
+        @POST("enroll")
+        fun login(@Field("email") email: String,
+                   @Field("password") password: String): Call<Void>
+
+        @DELETE("products/{id}")
         fun delete(@Path("id") id: Int): Call<Void>
 
         @FormUrlEncoded
-        @POST("books")
+        @POST("products")
         fun insert(@Field("author") author: String,
                    @Field("title") title: String,
                    @Field("price") price: Double,
@@ -34,7 +39,7 @@ object BookService {
                    @Field("description") description: String): Call<Void>
 
         @FormUrlEncoded
-        @PUT("books/{id}")
+        @PUT("products/{id}")
         fun update(@Path("id") id: Int,
                    @Field("author") author: String,
                    @Field("title") title: String,

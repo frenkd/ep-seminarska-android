@@ -12,37 +12,37 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 
-class MainActivity : AppCompatActivity(), Callback<List<Book>> {
+class MainActivity : AppCompatActivity(), Callback<List<Product>> {
     private val tag = this::class.java.canonicalName
 
-    private lateinit var adapter: BookAdapter
+    private lateinit var adapter: SneakersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = BookAdapter(this)
+        adapter = SneakersAdapter(this)
         items.adapter = adapter
         items.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
             val book = adapter.getItem(i)
             if (book != null) {
-                val intent = Intent(this, BookDetailActivity::class.java)
+                val intent = Intent(this, ProductDetailActivity::class.java)
                 intent.putExtra("ep.rest.id", book.id)
                 startActivity(intent)
             }
         }
 
-        container.setOnRefreshListener { BookService.instance.getAll().enqueue(this) }
+        container.setOnRefreshListener { SneakersService.instance.getAll().enqueue(this) }
 
-        btnSave.setOnClickListener {
-            val intent = Intent(this, BookFormActivity::class.java)
+        btnLogin.setOnClickListener {
+            val intent = Intent(this, UserLoginFormActivity::class.java)
             startActivity(intent)
         }
 
-        BookService.instance.getAll().enqueue(this)
+        SneakersService.instance.getAll().enqueue(this)
     }
 
-    override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
+    override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
         if (response.isSuccessful) {
             val hits = response.body() ?: emptyList()
             Log.i(tag, "Got ${hits.size} hits")
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(), Callback<List<Book>> {
         container.isRefreshing = false
     }
 
-    override fun onFailure(call: Call<List<Book>>, t: Throwable) {
+    override fun onFailure(call: Call<List<Product>>, t: Throwable) {
         Log.w(tag, "Error: ${t.message}", t)
         container.isRefreshing = false
     }

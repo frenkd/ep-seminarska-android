@@ -19,13 +19,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BookDetailActivity"
+            android:name=".ProductDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ep.rest.MainActivity" />
         </activity>
-        <activity android:name=".BookFormActivity">
+        <activity android:name=".UserLoginFormActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ep.rest.MainActivity" />
