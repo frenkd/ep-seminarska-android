@@ -4,19 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_user_login_form.*
+import kotlinx.android.synthetic.main.activity_user_edit_form2.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 
-class UserLoginFormActivity : AppCompatActivity() {
+class UserEditFormActivity2 : AppCompatActivity() {
     private var user: User = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_login_form)
+        setContentView(R.layout.activity_user_edit_form2)
 
         btnLogin.setOnClickListener {
             val password = etPassword.text.toString().trim()
@@ -27,16 +26,15 @@ class UserLoginFormActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val TAG = UserLoginFormActivity::class.java.canonicalName
+        private val TAG = UserEditFormActivity2::class.java.canonicalName
     }
 
-    private class OnLoginCallbacks(val activity: UserLoginFormActivity) : Callback<User> {
+    private class OnLoginCallbacks(val activity: UserEditFormActivity2) : Callback<User> {
         private val tag = this::class.java.canonicalName
 
         override fun onResponse(call: Call<User>, response: Response<User>) {
             if (response.isSuccessful) {
                 Log.i(TAG, "Login success!")
-
                 activity.user = response.body() ?: User() as User
 
                 Log.i(TAG, "Got result: {$activity.user.name}")
@@ -49,7 +47,6 @@ class UserLoginFormActivity : AppCompatActivity() {
 
                 val intent = Intent(activity, MainActivity::class.java)
                 activity.startActivity(intent)
-                Toast.makeText(activity, "Logged in sucessfuly! Welcome ${app.name}!", Toast.LENGTH_SHORT).show()
             } else {
                 val errorMessage = try {
                     "An error occurred: ${response.errorBody()?.string()}"
@@ -57,13 +54,6 @@ class UserLoginFormActivity : AppCompatActivity() {
                     "An error occurred: error while decoding the error message."
                 }
                 Log.e(TAG, errorMessage)
-                if (response.code() == 401) {
-                    Toast.makeText(activity, "Wrong password", Toast.LENGTH_SHORT).show()
-                }
-                if (response.code() == 404) {
-                    Toast.makeText(activity, "No such user", Toast.LENGTH_SHORT).show()
-                }
-
             }
         }
 

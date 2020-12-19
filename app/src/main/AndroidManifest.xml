@@ -6,6 +6,7 @@
 
     <application
         android:allowBackup="true"
+        android:name="MyApplicationObject"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -26,6 +27,11 @@
                 android:value="ep.rest.MainActivity" />
         </activity>
         <activity android:name=".UserLoginFormActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ep.rest.MainActivity" />
+        </activity>
+        <activity android:name=".UserEditFormActivity2">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ep.rest.MainActivity" />

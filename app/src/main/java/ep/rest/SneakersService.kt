@@ -1,9 +1,15 @@
 package ep.rest
 
+import okhttp3.Cookie
+import okhttp3.CookieJar
+import okhttp3.HttpUrl
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 object SneakersService {
 
@@ -22,10 +28,13 @@ object SneakersService {
         @GET("products/{id}")
         fun get(@Path("id") id: Int): Call<Product>
 
+        @GET("logout")
+        fun logout(@Header("Cookie") sessionId: String): Call<Void>
+
         @FormUrlEncoded
         @POST("enroll")
         fun login(@Field("email") email: String,
-                   @Field("password") password: String): Call<Void>
+                  @Field("password") password: String): Call<User>
 
         @DELETE("products/{id}")
         fun delete(@Path("id") id: Int): Call<Void>

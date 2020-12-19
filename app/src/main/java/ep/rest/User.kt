@@ -7,4 +7,4 @@ data class User(
         val email: String = "",
         val name: String = "",
         val surname: String = "",
-        val token: String = "") : Serializable
+        val sessionToken: String = "") : Serializable

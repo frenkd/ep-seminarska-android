@@ -20,12 +20,6 @@ class ProductDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_book_detail)
         setSupportActionBar(toolbar)
 
-        fabEdit.setOnClickListener {
-            val intent = Intent(this, UserLoginFormActivity::class.java)
-            intent.putExtra("ep.rest.book", product)
-            startActivity(intent)
-        }
-
         fabDelete.setOnClickListener {
             val dialog = AlertDialog.Builder(this)
             dialog.setTitle("Confirm deletion")
